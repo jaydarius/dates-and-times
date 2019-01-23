@@ -13,12 +13,17 @@ class Quiz:
         # generate 10 random questions with numbers from 1-10
         quiz_item1 = Add(4, 4)
         quiz_item2 = Multiply(2, 3)
+        # use a range to generate number
+        for _ in range(10):
+            # choose add or multiply
+            # choose a random digit to use as arguments 
         # add these questions into self.questions
         self.questions.append(quiz_item1.text)
         self.questions.append(quiz_item2.text)
 
     def take_quiz(self):
         # log the start time
+            # run datetime.datetime.now()
         # ask all of the questions -> ask func
         # log if they got the question right -> output to a text file or on the console
         # log the end time
