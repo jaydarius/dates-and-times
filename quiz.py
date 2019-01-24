@@ -10,20 +10,19 @@ class Quiz:
     answers = []
 
     def __init__(self):
+        question_types = (Add, Multiply)  # this tuple is a sequence!
         # generate 10 random questions with numbers from 1-10
-        quiz_item1 = Add(4, 4)
-        quiz_item2 = Multiply(2, 3)
-        # use a range to generate number
         for _ in range(10):
-            # choose add or multiply
-            # choose a random digit to use as arguments 
-        # add these questions into self.questions
-        self.questions.append(quiz_item1.text)
-        self.questions.append(quiz_item2.text)
+            num1 = random.randint(1,10)
+            num2 = random.randint(1,10)
+            # random.choice is used for sequences AKA seq
+            question = random.choice(question_types)(num1, num2)
+            self.questions.append(question)
 
     def take_quiz(self):
         # log the start time
-            # run datetime.datetime.now()
+        start_time = datetime.datetime.now()
+
         # ask all of the questions -> ask func
         # log if they got the question right -> output to a text file or on the console
         # log the end time
@@ -40,7 +39,22 @@ class Quiz:
         # send back the elapsed time, too
         pass
 
+    def total_correct(self):
+        total = 0
+        for answer in self.answers:
+            # The first index of `answer` is a boolean telling us if they got the question right or wrong.
+            # I think this is also the answer.answer attribute 
+            if answer[0]:
+                total += 1
+        return total  
+
     def summary(self):
         # print how many you got right and the total # of questions
-        # print the total time for the quiz: 30 seconds
+        print("You got {} out of {} right".format(
+            self.total_correct(), len(self.questions)
+        ))
+        # compute a timedelta and use its seconds
+        print("It took you {} seconds total.".format(
+            (self.end_time-self.start_time).seconds
+        ))
         pass
