@@ -7,43 +7,59 @@ from questions import Add, Multiply
 
 class Quiz:
     questions = []
-    answers = []
+    answers = []  # each element will have Correct boolean at [1] and datetime.delta at [2]
 
     def __init__(self):
-        question_types = (Add, Multiply)  # this tuple is a sequence!
+        question_types = (Add, Multiply)  #  sequence!
+
         # generate 10 random questions with numbers from 1-10
         for _ in range(10):
             num1 = random.randint(1,10)
             num2 = random.randint(1,10)
+
             # random.choice is used for sequences AKA seq
             question = random.choice(question_types)(num1, num2)
             self.questions.append(question)
 
     def take_quiz(self):
         # log the start time
-        start_time = datetime.datetime.now()
+        self.start_time = datetime.datetime.now()
 
-        # ask all of the questions -> ask func
-        # log if they got the question right -> output to a text file or on the console
-        # log the end time
-        # show a summary -> summary func
-        pass
+        # ask all of the questions
+        for question in self.questions:
+            # log if they got the question right
+            self.answers.append(self.ask(question))
+        else:
+            # log the end time
+            self.end_time = datetime.datetime.now()
+        
+        # show a summary
+        return self.summary()
+       
 
     def ask(self, question):
+        correct = False
         # log the start time
-        # capture the answer -> input func
+        question_start = datetime.datetime.now()
+
+        # capture the answer
+        answer = input(question.text + ' = ')
+
         # check the answer
+        if answer == str(question.answer):
+            correct = True
+
         # log the end time
+        question_end = datetime.datetime.now()
+
         # if the answer's right, send back True
         # otherwise, send back False
         # send back the elapsed time, too
-        pass
+        return correct, question_end - question_start
 
     def total_correct(self):
         total = 0
         for answer in self.answers:
-            # The first index of `answer` is a boolean telling us if they got the question right or wrong.
-            # I think this is also the answer.answer attribute 
             if answer[0]:
                 total += 1
         return total  
@@ -57,4 +73,5 @@ class Quiz:
         print("It took you {} seconds total.".format(
             (self.end_time-self.start_time).seconds
         ))
-        pass
+
+Quiz().take_quiz()
