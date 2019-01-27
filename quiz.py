@@ -7,7 +7,7 @@ from questions import Add, Multiply
 
 class Quiz:
     questions = []
-    answers = []  # each element will have Correct boolean at [1] and datetime.delta at [2]
+    answers = []  # each element will have Correct boolean at [0] and datetime.delta at [1]
 
     def __init__(self):
         question_types = (Add, Multiply)  #  sequence!
